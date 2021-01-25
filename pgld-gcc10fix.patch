@@ -1,0 +1,24 @@
+diff -ur code/pgld/blocklist.c code/pgld-fixed/blocklist.c
+--- code/pgld/blocklist.c	2021-01-25 18:12:18.191098798 +0300
++++ code/pgld-fixed/blocklist.c	2021-01-25 18:07:55.985429941 +0300
+@@ -22,6 +22,8 @@
+ #include "blocklist.h"
+ #include "pgld.h"
+ 
++blocklist_t blocklist;
++
+ void blocklist_init() {
+     blocklist.entries = NULL;
+     blocklist.count = 0;
+diff -ur code/pgld/blocklist.h code/pgld-fixed/blocklist.h
+--- code/pgld/blocklist.h	2021-01-25 18:12:22.294831453 +0300
++++ code/pgld-fixed/blocklist.h	2021-01-25 18:07:31.479678809 +0300
+@@ -74,6 +74,7 @@
+ void blocklist_stats(int clearhits);
+ block_entry_t * blocklist_find(uint32_t ip);
+ void blocklist_dump();
+-blocklist_t blocklist;
++//blocklist_t blocklist;
++extern blocklist_t blocklist;
+ 
+ #endif /* INC_BLOCKLIST_H */

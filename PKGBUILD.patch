@@ -1,0 +1,36 @@
+--- PKGBUILD	2021-01-25 18:54:22.205761687 +0300
++++ PKGBUILD-fixed	2021-01-25 18:55:17.087552110 +0300
+@@ -5,6 +5,7 @@
+ pkgrel=1
+ pkgdesc='A privacy oriented firewall application (Daemon, CLI & GUI).'
+ arch=('i686' 'x86_64')
++# Maintainer: Gilrain <gilrain+libre.arch A_T castelmo DOT_ re>
+ url='http://sourceforge.net/projects/peerguardian/'
+ license=('GPL3')
+ depends=('bash' 'systemd' 'dbus' 'coreutils' 'procps-ng' 'logrotate' 'wget' 'iptables' 'libnetfilter_queue' 'cron' 'qt5-base' 'whois')
+@@ -23,7 +24,6 @@
+ 	'etc/pgl/pglcmd.conf'
+ 	'etc/logrotate.d/pglcmd'
+ 	'etc/logrotate.d/pgld')
+-install=install
+ source=('git://git.code.sf.net/p/peerguardian/code/')
+ sha256sums=('SKIP')
+ 
+@@ -37,6 +37,8 @@
+     cd "code"
+ 
+     ./autogen.sh
++    
++    patch -p0 < pgld-gcc10fix.patch
+ }
+ 
+ build() {
+@@ -44,7 +46,7 @@
+ 
+     ./configure --prefix=/usr --sbindir=/usr/bin --sysconfdir=/etc --localstatedir=/var --datarootdir=/usr/share \
+     		--with-piddir=/run --with-systemd --without-initddir
+-    make
++    make CFLAGS=-fno-common
+ }
+ 
+ package() {
